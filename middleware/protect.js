@@ -16,11 +16,11 @@
 'use strict';
 
 const UUID = require('./../uuid');
+var getport = require('./getport');
 
 function forceLogin (keycloak, request, response) {
   let host = request.hostname;
-  let headerHost = request.headers.host.split(':');
-  let port = headerHost[1] || '';
+  let port = getport.result(request.headers.host) || '';
   let protocol = request.protocol;
   let hasQuery = ~(request.originalUrl || request.url).indexOf('?');
 
