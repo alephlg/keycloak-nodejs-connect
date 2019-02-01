@@ -38,6 +38,7 @@ function GrantManager (config) {
   this.publicKey = config.publicKey;
   this.public = config.public;
   this.bearerOnly = config.bearerOnly;
+  this.checkISS = config.checkISS;
   this.notBefore = 0;
   this.rotation = new Rotation(config);
 }
@@ -428,7 +429,7 @@ GrantManager.prototype.validateToken = function validateToken (token, expectedTy
       reject(new Error('invalid token (wrong type)'));
     } else if (token.content.iat < this.notBefore) {
       reject(new Error('invalid token (stale token)'));
-    } else if (token.content.iss !== this.realmUrl) {
+    } else if (token.content.iss !== this.realmUrl && this.checkISS) {
       reject(new Error('invalid token (wrong ISS)'));
     } else {
       const verify = crypto.createVerify('RSA-SHA256');

@@ -147,6 +147,13 @@ Config.prototype.configure = function configure (config) {
    */
   this.bearerOnly = resolveValue(config['bearer-only'] || config.bearerOnly || false);
 
+
+  /**
+   * The Issuer check "to be or not to be"
+   * @type {Boolean}
+   */
+  this.checkISS = resolveValue(config['checkISS'] || config.checkISS || false);
+
   /**
     * Formatted public-key.
     * @type {String}
